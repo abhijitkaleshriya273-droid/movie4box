@@ -1,0 +1,84 @@
+{% extends "base.html" %}{% block title %}Admin — Movie4Box{% endblock %}
+{% block content %}<section class="admin"><div class="section-head"><h1>Movie4Box Admin</h1><a href="{{url_for('logout')}}">Logout</a></div>
+<form class="addform" method="post" action="{{url_for('add_movie')}}" enctype="multipart/form-data">
+<input name="title" placeholder="Movie title *" required><input name="poster" placeholder="Poster image URL">
+<div style="margin:8px 0 14px;color:#8fa6c2;font-size:13px;">OR Upload Poster Image</div>
+<input type="file" name="poster_file" accept="image/jpeg,image/png,image/webp"><input name="video_url" placeholder="Authorized video URL"><input name="language" placeholder="Language"><input name="year" placeholder="Year"><input name="genre" placeholder="Genre"><select name="category" required>
+<option value="Movies">Movies</option>
+<option value="Hollywood Movies">Hollywood Movies</option>
+<option value="Tamil Movies">Tamil Movies</option>
+<option value="Bollywood">Bollywood</option>
+<option value="Dual Audio Content">Dual Audio Content</option>
+<option value="Thriller Movies">Thriller Movies</option>
+<option value="Animated Movies">Animated Movies</option>
+<option value="Bollywood 480p Movies">Bollywood 480p Movies</option>
+<option value="Crime Films">Crime Films</option>
+<option value="Romantic Movies">Romantic Movies</option>
+<option value="Action Movies">Action Movies</option>
+<option value="Family Films">Family Films</option>
+<option value="Hollywood Movies 1080p">Hollywood Movies 1080p</option>
+<option value="Comedy Movies">Comedy Movies</option>
+<option value="Horror Movies">Horror Movies</option>
+<option value="Adventure Movies">Adventure Movies</option>
+<option value="Fantasy Movies">Fantasy Movies</option>
+<option value="Dual Audio Hindi 720p Movies">Dual Audio Hindi 720p Movies</option>
+<option value="Documentary Movies">Documentary Movies</option>
+<option value="War Movies">War Movies</option>
+<option value="Mystery Films">Mystery Films</option>
+<option value="Drama Films">Drama Films</option>
+<option value="Cartoon Films">Cartoon Films</option>
+<option value="Punjabi Movies 720p">Punjabi Movies 720p</option>
+<option value="Tamil Movies 720p">Tamil Movies 720p</option>
+<option value="Pakistani Movies">Pakistani Movies</option>
+<option value="History Movies">History Movies</option>
+<option value="Popular Web Series">Popular Web Series</option>
+<option value="Telugu Movies">Telugu Movies</option>
+<option value="Anime">Anime</option>
+<option value="Korean">Korean</option>
+<option value="Cartoon">Cartoon</option>
+<option value="Animation">Animation</option>
+<option value="AI Videos">AI Videos</option>
+</select><input name="quality" placeholder="Quality (HD/720p/1080p)">
+<input name="duration" placeholder="Duration (Example: 2h 15m)">
+<input name="starcast" placeholder="Starcast (Example: Actor 1, Actor 2)">
+<input name="file_size" placeholder="File Size (Example: 1.2 GB)"><textarea name="description" placeholder="Description"></textarea><button class="btn">+ Add Movie</button></form>
+<div class="adminlist">
+{% for m in movies %}
+<div>
+<b>{{m.title}}</b>
+<span>{{m.year or ''}} · {{m.genre or ''}}</span>
+
+<div style="margin-top:12px;">
+<b>Upload Quality Versions</b>
+
+{% for q in ["480p", "720p", "1080p", "4K"] %}
+<form method="post" action="{{url_for('upload_quality_video', movie_id=m.id)}}" enctype="multipart/form-data" style="margin-top:8px;">
+<input type="hidden" name="quality" value="{{q}}">
+<label>{{q}}</label>
+<input type="file" name="video" accept="video/mp4,video/webm,video/quicktime,video/x-m4v" required>
+<button class="btn">Upload {{q}}</button>
+</form>
+{% endfor %}
+</div>
+
+{% if m.video_url %}
+<small>✓ Video added</small>
+{% else %}
+<small>No video yet</small>
+{% endif %}
+
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
+
+<a class="btn" href="{{url_for('edit_movie', movie_id=m.id)}}">
+✏️ Edit
+</a>
+
+<form method="post" action="{{url_for('delete_movie', movie_id=m.id)}}">
+<button class="danger">Delete</button>
+</form>
+
+</div>
+</div>
+{% endfor %}
+</div>
+</section>{% endblock %}

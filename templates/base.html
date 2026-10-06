@@ -1,0 +1,25 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}Movie4Box — Movies, Series & Entertainment{% endblock %}</title>
+<meta name="description" content="Movie4Box is an entertainment catalog for movies, web series, anime and more. Explore titles, details, categories and authorized video content.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Movie4Box">
+<meta name="theme-color" content="#061226">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Movie4Box — Movies, Series & Entertainment">
+<meta property="og:description" content="Explore movies, web series, anime and more on Movie4Box.">
+<meta property="og:site_name" content="Movie4Box">
+
+<link rel="canonical" href="{{ request.url }}">
+<link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head><body>
+<header class="topbar">
+  <a class="brand" href="{{ url_for('home') }}"><span class="play">▶</span><span>Movie<span>4Box</span></span></a>
+  <nav><a href="{{ url_for('home') }}">Home</a><a href="#latest">Latest</a><a href="#categories">Categories</a><a href="{{ url_for('admin') }}">Admin</a></nav>
+  <form class="search" action="{{ url_for('home') }}"><input name="q" value="{{ q|default('') }}" placeholder="Search movies, series..."><button>⌕</button></form>
+</header>
+<main>{% block content %}{% endblock %}</main>
+<footer>© Movie4Box · <a href="{{ url_for("about") }}">About</a> · <a href="{{ url_for("contact") }}">Contact</a> · <a href="{{ url_for("privacy") }}">Privacy</a> · <a href="{{ url_for("terms") }}">Terms</a></footer>
+</body></html>

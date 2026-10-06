@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Page Not Found — Movie4Box{% endblock %}
+
+{% block content %}
+<section style="text-align:center;padding:80px 20px;">
+    <div style="font-size:72px;font-weight:900;color:#168cff;">404</div>
+    <h1>Page Not Found</h1>
+    <p style="color:#8fa6c0;margin:12px 0 25px;">
+        Sorry, the page you're looking for doesn't exist.
+    </p>
+    <a class="btn" href="{{ url_for('home') }}">← Back to Movie4Box</a>
+</section>
+{% endblock %}

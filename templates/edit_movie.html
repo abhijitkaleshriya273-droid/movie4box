@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}Edit Movie — Movie4Box{% endblock %}
+
+{% block content %}
+
+<div class="form-card">
+    <h1>Edit Movie</h1>
+
+    <form method="post">
+
+        <label>Movie Title</label>
+        <input name="title" value="{{ movie.title or '' }}" required>
+
+        <label>Description</label>
+        <textarea name="description">{{ movie.description or '' }}</textarea>
+
+        <label>Poster URL</label>
+        <input name="poster" value="{{ movie.poster or '' }}">
+
+        <label>Video URL</label>
+        <input name="video_url" value="{{ movie.video_url or '' }}">
+
+        <label>Language</label>
+        <input name="language" value="{{ movie.language or '' }}">
+
+        <label>Year</label>
+        <input name="year" value="{{ movie.year or '' }}">
+
+        <label>Genre</label>
+        <input name="genre" value="{{ movie.genre or '' }}">
+
+        <label>Quality</label>
+        <input name="quality" value="{{ movie.quality or '' }}">
+
+        <label>Duration</label>
+        <input name="duration" value="{{ movie.duration or '' }}" placeholder="Example: 2h 15m">
+
+        <label>Starcast</label>
+        <input name="starcast" value="{{ movie.starcast or '' }}" placeholder="Example: Actor 1, Actor 2">
+
+        <label>File Size</label>
+        <input name="file_size" value="{{ movie.file_size or '' }}" placeholder="Example: 1.2 GB">
+
+        <label>Category</label>
+        <select name="category">
+            {% for cat in [
+                'Movies',
+                'Hollywood Movies',
+                'Tamil Movies',
+                'Bollywood',
+                'Dual Audio Content',
+                'Thriller Movies',
+                'Animated Movies',
+                'Crime Films',
+                'Romantic Movies',
+                'Action Movies',
+                'Family Films',
+                'Comedy Movies',
+                'Horror Movies',
+                'Adventure Movies',
+                'Fantasy Movies',
+                'Documentary Movies',
+                'War Movies',
+                'Mystery Films',
+                'Drama Films',
+                'Cartoon Films',
+                'Punjabi Movies 720p',
+                'Tamil Movies 720p',
+                'Pakistani Movies',
+                'History Movies',
+                'Popular Web Series',
+                'Telugu Movies',
+                'Anime',
+                'Korean',
+                'Cartoon',
+                'Animation',
+                'AI Videos'
+            ] %}
+                <option value="{{ cat }}" {% if movie.category == cat %}selected{% endif %}>
+                    {{ cat }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <button class="btn" type="submit">💾 Save Changes</button>
+
+    </form>
+
+    <div style="margin-top:15px;">
+        <a class="btn" href="{{ url_for('admin') }}">← Back to Admin</a>
+    </div>
+</div>
+
+{% endblock %}

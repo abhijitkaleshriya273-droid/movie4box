@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% block title %}{{ movie.title }} — Movie4Box{% endblock %}
+
+{% block content %}
+
+<section class="movie-detail-page">
+
+    <div class="movie-detail-card">
+
+        <div class="movie-detail-poster">
+            {% if movie.poster %}
+                <img src="{{ movie.poster }}" alt="{{ movie.title }}">
+            {% else %}
+                <div class="detail-placeholder">
+                    <strong>MOVIE4BOX</strong>
+                    <span>▶</span>
+                </div>
+            {% endif %}
+
+            <div class="detail-quality">
+                {{ movie.quality or 'HD' }}
+            </div>
+        </div>
+
+        <div class="movie-detail-info">
+
+            <div class="detail-label">
+                {{ movie.genre or 'MOVIE' }}
+                {% if movie.year %} • {{ movie.year }}{% endif %}
+            </div>
+
+            <h1>{{ movie.title }}</h1>
+
+            <div class="detail-meta">
+                {% if movie.language %}🌐 {{ movie.language }}{% endif %}
+                {% if movie.quality %} • 🎬 {{ movie.quality }}{% endif %}
+            </div>
+
+            <p class="detail-description">
+                {{ movie.description or 'No description available.' }}
+            </p>
+
+            <div class="detail-extra">
+                {% if movie.duration %}
+                    <span>⏱ {{ movie.duration }}</span>
+                {% endif %}
+
+                {% if movie.file_size %}
+                    <span>💾 {{ movie.file_size }}</span>
+                {% endif %}
+
+                {% if movie.starcast %}
+                    <span>⭐ {{ movie.starcast }}</span>
+                {% endif %}
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
+    {% if qualities %}
+
+    <section class="watch-section">
+
+        <div class="section-title">
+            <span></span>
+            <h2>▶ Watch Movie</h2>
+        </div>
+
+        <div class="quality-grid">
+
+            {% for q in qualities %}
+
+            <div class="quality-card">
+
+                <div class="quality-name">
+                    {{ q.quality }}
+                </div>
+
+                <div class="quality-actions">
+                    <a class="watch-btn"
+                       href="{{ q.video_url }}"
+                       target="_blank">
+                        ▶ Watch
+                    </a>
+
+                    <a class="download-btn"
+                       href="{{ q.video_url }}"
+                       download>
+                        ↓ Download
+                    </a>
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+    {% elif movie.video_url %}
+
+    <section class="watch-section">
+
+        <div class="section-title">
+            <span></span>
+            <h2>▶ Watch Movie</h2>
+        </div>
+
+        <div class="player movie-player">
+            <video controls playsinline src="{{ movie.video_url }}"></video>
+        </div>
+
+        <div class="quality-actions single-actions">
+
+            <a class="watch-btn"
+               href="{{ movie.video_url }}"
+               target="_blank">
+                ▶ Watch
+            </a>
+
+            <a class="download-btn"
+               href="{{ movie.video_url }}"
+               download>
+                ↓ Download
+            </a>
+
+        </div>
+
+    </section>
+
+    {% else %}
+
+    <div class="notice">
+        No video source added yet.
+    </div>
+
+    {% endif %}
+
+
+    <div class="back-home">
+        <a class="btn" href="{{ url_for('home') }}">
+            ← Back to Movie4Box
+        </a>
+    </div>
+
+</section>
+
+{% endblock %}

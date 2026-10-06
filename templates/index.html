@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block title %}Movie4Box — Home{% endblock %}
+
+{% block content %}
+
+<section class="modern-hero">
+    <div class="hero-glow"></div>
+
+    <div class="hero-content">
+        <div class="hero-badge">✦ MOVIE4BOX</div>
+
+        <h1>Unlimited Entertainment.<br>
+            <span>All in One Place.</span>
+        </h1>
+
+        <p>
+            Explore movies, series, anime and more.
+            Find something great to watch tonight.
+        </p>
+
+        <div class="hero-actions">
+            <a href="#latest" class="hero-primary">▶ Explore Movies</a>
+            <a href="#categories" class="hero-secondary">Browse Categories</a>
+        </div>
+    </div>
+
+    <div class="hero-orb orb-one"></div>
+    <div class="hero-orb orb-two"></div>
+</section>
+
+<section id="categories" class="category-section">
+    <div class="category-grid">
+
+        <a class="cat-btn cat-blue" href="{{ url_for('home', category='Hollywood Movies') }}">HOLLYWOOD MOVIES</a>
+        <a class="cat-btn cat-orange" href="{{ url_for('home', category='Tamil Movies') }}">TAMIL MOVIES</a>
+
+        <a class="cat-btn cat-green" href="{{ url_for('home', category='Bollywood') }}">BOLLYWOOD</a>
+        <a class="cat-btn cat-red" href="{{ url_for('home', category='Dual Audio Content') }}">DUAL AUDIO CONTENT</a>
+
+        <a class="cat-btn" href="{{ url_for('home', category='Thriller Movies') }}">THRILLER MOVIES</a>
+        <a class="cat-btn" href="{{ url_for('home', category='Animated Movies') }}">ANIMATED MOVIES</a>
+
+        <a class="cat-btn" href="{{ url_for('home', category='Bollywood 480p Movies') }}">BOLLYWOOD 480P MOVIES</a>
+        <a class="cat-btn" href="{{ url_for('home', category='Crime Films') }}">CRIME FILMS</a>
+
+        <a class="cat-btn" href="{{ url_for('home', category='Romantic Movies') }}">ROMANTIC MOVIES</a>
+        <a class="cat-btn" href="{{ url_for('home', category='Action Movies') }}">ACTION MOVIES</a>
+
+        <a class="cat-btn" href="{{ url_for('home', category='Family Films') }}">FAMILY FILMS</a>
+        <a class="cat-btn" href="{{ url_for('home', category='Hollywood Movies 1080p') }}">HOLLYWOOD MOVIES 1080P</a>
+
+        <a class="cat-btn" href="{{ url_for('home', category='Comedy Movies') }}">COMEDY MOVIES</a>
+        <a class="cat-btn" href="{{ url_for('home', category='Horror Movies') }}">HORROR MOVIES</a>
+
+        <a class="cat-btn" href="{{ url_for('home', category='Adventure Movies') }}">ADVENTURE MOVIES</a>
+        <a class="cat-btn" href="{{ url_for('home', category='Fantasy Movies') }}">FANTASY MOVIES</a>
+
+        <a class="cat-btn" href="{{ url_for('home', category='Dual Audio Hindi 720p Movies') }}">DUAL AUDIO HINDI 720P MOVIES</a>
+
+        <a class="cat-btn" href="{{ url_for('home', category='Documentary Movies') }}">DOCUMENTARY MOVIES</a>
+        <a class="cat-btn" href="{{ url_for('home', category='War Movies') }}">WAR MOVIES</a>
+
+        <a class="cat-btn" href="{{ url_for('home', category='Mystery Films') }}">MYSTERY FILMS</a>
+        <a class="cat-btn" href="{{ url_for('home', category='Drama Films') }}">DRAMA FILMS</a>
+
+        <a class="cat-btn" href="{{ url_for('home', category='Cartoon Films') }}">CARTOON FILMS</a>
+        <a class="cat-btn" href="{{ url_for('home', category='Punjabi Movies 720p') }}">PUNJABI MOVIES 720P</a>
+
+        <a class="cat-btn" href="{{ url_for('home', category='Tamil Movies 720p') }}">TAMIL MOVIES 720P</a>
+        <a class="cat-btn" href="{{ url_for('home', category='Pakistani Movies') }}">PAKISTANI MOVIES</a>
+
+        <a class="cat-btn" href="{{ url_for('home', category='History Movies') }}">HISTORY MOVIES</a>
+        <a class="cat-btn" href="{{ url_for('home', category='Popular Web Series') }}">POPULAR WEB SERIES</a>
+
+        <a class="cat-btn" href="{{ url_for('home', category='Telugu Movies') }}">TELUGU MOVIES</a>
+
+        <a class="cat-btn" href="{{ url_for('home', category='Anime') }}">ANIME</a>
+        <a class="cat-btn" href="{{ url_for('home', category='Korean') }}">KOREAN</a>
+
+        <a class="cat-btn" href="{{ url_for('home', category='Cartoon') }}">CARTOON</a>
+        <a class="cat-btn" href="{{ url_for('home', category='Animation') }}">ANIMATION</a>
+
+        <a class="cat-btn" href="{{ url_for('home', category='AI Videos') }}">AI VIDEOS</a>
+        <a class="cat-btn" href="{{ url_for('home', category='Movies') }}">ALL MOVIES</a>
+
+        <a class="cat-btn" href="{{ url_for('home') }}">LATEST</a>
+
+    </div>
+</section>
+
+<section id="latest" class="catalog-section">
+    <div class="catalog-heading">
+        <h2>🔥 Latest Releases</h2>
+        <span>{{ movies|length }} titles</span>
+    </div>
+
+    <div class="movie-grid">
+    {% for m in movies if m.poster %}
+        <a class="movie-card" href="{{ url_for('movie', movie_id=m.id) }}">
+
+            <div class="movie-poster">
+                {% if m.poster %}
+                    <img src="{{ m.poster }}" alt="{{ m.title }}">
+                {% else %}
+                    <div class="poster-placeholder">
+                        <span>▶</span>
+                    </div>
+                {% endif %}
+
+                <span class="quality-badge">{{ m.quality or 'HD' }}</span>
+            </div>
+
+            <div class="movie-info">
+                <div class="movie-date">📅 {{ m.year or '2026' }}</div>
+                <h3>{{ m.title }}</h3>
+                <p>{{ m.language or 'Hindi' }}{% if m.genre %} • {{ m.genre }}{% endif %}</p>
+            </div>
+
+        </a>
+    {% else %}
+        <div class="empty">
+            No movies yet. Add your authorized titles from Admin.
+        </div>
+    {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

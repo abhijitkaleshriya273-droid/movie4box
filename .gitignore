@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+moviebox.db
+static/uploads/
+.env
+*.tar.gz
+app_backup_*.py
+app_before_*.py
+static/css/*backup*
+static/css/*before*
+templates/*backup*
+templates/*before*
