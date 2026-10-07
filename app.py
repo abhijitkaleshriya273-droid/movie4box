@@ -331,5 +331,13 @@ def page_not_found(error):
 
 init_db()
 
+# Database schema migration
+con = sqlite3.connect(DB)
+cols = [row[1] for row in con.execute("PRAGMA table_info(movies)").fetchall()]
+if "category" not in cols:
+    con.execute("ALTER TABLE movies ADD COLUMN category TEXT DEFAULT 'Movies'")
+    con.commit()
+con.close()
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=False)
