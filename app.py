@@ -3,7 +3,7 @@ from werkzeug.utils import secure_filename
 import sqlite3, os
 
 app = Flask(__name__)
-app.secret_key = os.environ.get("MOVIE4BOX_SECRET")
+app.secret_key = os.environ.get("MOVIE4BOX_SECRET") or "movie4box-local-secret-change-me"
 DB = "moviebox.db"
 UPLOAD_FOLDER = "static/uploads"
 ALLOWED_EXTENSIONS = {"mp4", "webm", "mov", "m4v"}
